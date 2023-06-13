@@ -55,9 +55,9 @@ export const VuiSearchResult = forwardRef<HTMLDivElement | null, Props>(
 
         {(title || id) && (
           <VuiTitle size="s">
-              <VuiLink href={fileUrl} target="_blank">
-                <h3>{title ?? id}</h3>
-              </VuiLink>
+              {/* <VuiLink href="#" target="_blank"> */}
+                <h3 style={{'color':'#214B87'}}>{title ?? id}</h3>
+              {/* </VuiLink> */}
           </VuiTitle>
         )}
 

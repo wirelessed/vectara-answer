@@ -12,7 +12,7 @@ type Props = {
   isSelected: boolean;
 };
 
-const CONTEXT_MAX_LENGTH = 200;
+const CONTEXT_MAX_LENGTH = 5000;
 
 export const SearchResult = forwardRef<HTMLDivElement | null, Props>(({ result, position, isSelected }: Props, ref) => {
   const { filters } = useConfigContext();

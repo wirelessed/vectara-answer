@@ -78,6 +78,7 @@ export const SearchResults = ({
       <VuiTitle size="xxs">
         <h2>
           <strong>References</strong>
+          <small><br/>Currently, the transcript preview is not available yet.</small>
         </h2>
       </VuiTitle>
 
