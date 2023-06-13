@@ -234,6 +234,7 @@ export const SearchContextProvider = ({ children }: Props) => {
           corpusId: search.corpusId!,
           endpoint: search.endpoint!,
           apiKey: search.apiKey!,
+          exactKeyword: exactKeyword,
         });
 
         // If we send multiple requests in rapid succession, we only want to
