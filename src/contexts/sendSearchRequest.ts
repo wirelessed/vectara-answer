@@ -11,6 +11,7 @@ type Config = {
   corpusId: string;
   endpoint: string;
   apiKey: string;
+  exactKeyword?: string;
 };
 
 export const sendSearchRequest = async ({
@@ -22,11 +23,15 @@ export const sendSearchRequest = async ({
   corpusId,
   endpoint,
   apiKey,
+  exactKeyword,
 }: Config) => {
   const lambda =
+    (exactKeyword == "true") ? 1 :
     typeof query_str === "undefined" || query_str.trim().split(" ").length > 1
       ? 0.025
       : 0.1;
+
+  console.log(lambda,"lambda");
   const corpusKeyList = corpusId.split(",").map((id) => {
     return {
       customerId,
@@ -43,11 +48,11 @@ export const sendSearchRequest = async ({
       {
         query: query_str,
         start: 0,
-        numResults: 10,
+        numResults: 20,
         corpusKey: corpusKeyList,
         context_config: {
-          sentences_before: includeSummary ? 5 : 2,
-          sentences_after: includeSummary ? 5 : 2,
+          sentencesBefore: 10,
+          sentencesAfter: 10,
           start_tag: START_TAG,
           end_tag: END_TAG,
         },
@@ -82,5 +87,8 @@ export const sendSearchRequest = async ({
   if (status.length > 0 && status[0]["code"] === "UNAUTHORIZED") {
     console.log("UNAUTHORIZED access; check your API key and customer ID");
   }
+
+  console.log(result, "reuslts");
+
   return result["data"]["responseSet"][0];
 };

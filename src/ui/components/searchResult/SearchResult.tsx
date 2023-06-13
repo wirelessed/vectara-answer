@@ -7,6 +7,7 @@ import { VuiText } from "../typography/Text";
 import { VuiTextColor } from "../typography/TextColor";
 
 export type SearchResultType = {
+  id?: string;
   title?: string;
   url?: string;
   date?: string;
@@ -33,6 +34,7 @@ export const VuiSearchResult = forwardRef<HTMLDivElement | null, Props>(
   ({ result, position, isSelected, subTitle, children, className, snippetProps, ...rest }: Props, ref) => {
     const {
       title,
+      id,
       url,
       date,
       snippet: { pre, post, text }
@@ -44,19 +46,18 @@ export const VuiSearchResult = forwardRef<HTMLDivElement | null, Props>(
       "vuiSearchResultPosition--selected": isSelected
     });
 
+    const year = id ? id.substring(0,4) : '';
+    const fileUrl = "smb://10.5.1.20/Transcripts/" + year + "/" + encodeURIComponent(id ?? '');
+
     return (
       <div className={classes} ref={ref} {...rest}>
         <div className={positionClasses}>{position}</div>
 
-        {(title || url) && (
+        {(title || id) && (
           <VuiTitle size="s">
-            {url ? (
-              <VuiLink href={highlightUrl(url, text)} target="_blank">
-                <h3>{title ?? url}</h3>
+              <VuiLink href={fileUrl} target="_blank">
+                <h3>{title ?? id}</h3>
               </VuiLink>
-            ) : (
-              <h3>{title}</h3>
-            )}
           </VuiTitle>
         )}
 

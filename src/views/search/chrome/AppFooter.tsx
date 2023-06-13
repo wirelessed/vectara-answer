@@ -4,7 +4,7 @@ import "./appFooter.scss";
 export const AppFooter = () => {
   return (
     <div className="appFooter">
-      <div className="appFooterContent">
+      {/* <div className="appFooterContent">
         <VuiFlexContainer alignItems="start" spacing="l" className="appFooterContent__layout">
           <VuiFlexItem grow={5}>
             <VuiTitle size="m">
@@ -79,7 +79,7 @@ export const AppFooter = () => {
             </VuiFlexContainer>
           </VuiFlexItem>
         </VuiFlexContainer>
-      </div>
+      </div> */}
     </div>
   );
 };

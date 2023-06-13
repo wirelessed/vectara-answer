@@ -32,11 +32,13 @@ interface SearchContextType {
     filter,
     language,
     isPersistable,
+    exactKeyword,
   }: {
     value?: string;
     filter?: string;
     language?: SummaryLanguage;
     isPersistable?: boolean;
+    exactKeyword?: string;
   }) => void;
   reset: () => void;
   isSearching: boolean;
@@ -51,6 +53,7 @@ interface SearchContextType {
   searchResultsRef: React.MutableRefObject<HTMLElement[] | null[]>;
   selectedSearchResultPosition: number | undefined;
   selectSearchResultAt: (position: number) => void;
+  exactKeywordValue: string;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -68,15 +71,17 @@ type Props = {
 let searchCount = 0;
 
 export const SearchContextProvider = ({ children }: Props) => {
-  const { isConfigLoaded, search, summary: { defaultLanguage } } = useConfigContext();
+  const [exactKeywordValue, setExactKeywordValue] = useState("false");
+
+  const { isConfigLoaded, search } = useConfigContext();
 
   const [searchValue, setSearchValue] = useState<string>("");
   const [filterValue, setFilterValue] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Language
-  const [languageValue, setLanguageValue] = useState<SummaryLanguage>();
+  // Language.
+  const [languageValue, setLanguageValue] = useState<SummaryLanguage>("auto");
 
   // History
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -89,7 +94,8 @@ export const SearchContextProvider = ({ children }: Props) => {
   // Summarization
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [summarizationError, setSummarizationError] = useState<any>();
-  const [summarizationResponse, setSummarizationResponse] = useState<SearchResponse>();
+  const [summarizationResponse, setSummarizationResponse] =
+    useState<SearchResponse>();
 
   // Citation selection
   const searchResultsRef = useRef<HTMLElement[] | null[]>([]);
@@ -114,6 +120,7 @@ export const SearchContextProvider = ({ children }: Props) => {
         | SummaryLanguage
         | undefined,
       isPersistable: false,
+      exactKeyword: "false",
     });
   }, [isConfigLoaded, searchParams]); // TODO: Add onSearch and fix infinite render loop
 
@@ -152,25 +159,25 @@ export const SearchContextProvider = ({ children }: Props) => {
     }
   };
 
-  const getLanguage = (): SummaryLanguage =>
-    (languageValue ?? defaultLanguage) as SummaryLanguage;
-
   const onSearch = async ({
     value = searchValue,
     filter = filterValue,
-    language = getLanguage(),
+    language = languageValue,
     isPersistable = true,
+    exactKeyword = exactKeywordValue,
   }: {
     value?: string;
     filter?: string;
     language?: SummaryLanguage;
     isPersistable?: boolean;
+    exactKeyword?: string;
   }) => {
     const searchId = ++searchCount;
 
     setSearchValue(value);
     setFilterValue(filter);
     setLanguageValue(language);
+    setExactKeywordValue(exactKeyword);
 
     if (value?.trim()) {
       // Save to history.
@@ -201,6 +208,7 @@ export const SearchContextProvider = ({ children }: Props) => {
           corpusId: search.corpusId!,
           endpoint: search.endpoint!,
           apiKey: search.apiKey!,
+          exactKeyword: exactKeyword,
         });
         // If we send multiple requests in rapid succession, we only want to
         // display the results of the most recent request.
@@ -272,12 +280,13 @@ export const SearchContextProvider = ({ children }: Props) => {
         isSummarizing,
         summarizationError,
         summarizationResponse,
-        language: getLanguage(),
+        language: languageValue,
         history,
         clearHistory,
         searchResultsRef,
         selectedSearchResultPosition,
         selectSearchResultAt,
+        exactKeywordValue,
       }}
     >
       {children}

@@ -20,7 +20,7 @@ export const SearchResult = forwardRef<HTMLDivElement | null, Props>(({ result, 
 
   const {
     source,
-    title,
+    id,
     url,
     snippet: { pre, post, text }
   } = result;
@@ -30,7 +30,7 @@ export const SearchResult = forwardRef<HTMLDivElement | null, Props>(({ result, 
       ref={ref}
       isSelected={isSelected}
       result={{
-        title,
+        id,
         url,
         snippet: { pre: truncateStart(pre, CONTEXT_MAX_LENGTH), text, post: truncateEnd(post, CONTEXT_MAX_LENGTH) }
       }}

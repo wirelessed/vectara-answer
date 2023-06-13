@@ -40,7 +40,7 @@ export const AppHeader = () => {
             <VuiFlexItem grow={1}>
               <VuiTitle size="xs" align="left">
                 <VuiTextColor color="subdued">
-                  <h1>Sample app</h1>
+                  <h1>Transcript Semantic Search</h1>
                 </VuiTextColor>
               </VuiTitle>
             </VuiFlexItem>
@@ -84,7 +84,7 @@ export const AppHeader = () => {
               </VuiFlexItem>
             )}
 
-            <VuiFlexItem>
+            {/* <VuiFlexItem>
               <VuiButton
                 color="accent"
                 size="m"
@@ -100,7 +100,7 @@ export const AppHeader = () => {
               >
                 Try Vectara now
               </VuiButton>
-            </VuiFlexItem>
+            </VuiFlexItem> */}
           </VuiFlexContainer>
         </VuiFlexItem>
       </VuiFlexContainer>

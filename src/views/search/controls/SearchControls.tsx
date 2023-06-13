@@ -24,6 +24,16 @@ const languageOptions = SUMMARY_LANGUAGES.map((code) => ({
   label: humanizeLanguage(code),
 }));
 
+const exactKeywordOptions = [{
+  value: "true",
+  label: "Yes"
+},
+{
+  value: "false",
+  label: "No"
+},
+]
+
 type Props = {
   isHistoryOpen: boolean;
   onToggleHistory: () => void;
@@ -40,11 +50,13 @@ export const SearchControls = ({
     searchValue,
     setSearchValue,
     language,
+    exactKeywordValue,
     onSearch,
     reset,
   } = useSearchContext();
   const { searchHeader, filters } = useConfigContext();
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [isExactKeywordOpen, setIsExactKeywordOpen] = useState(false);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -118,6 +130,38 @@ export const SearchControls = ({
 
             <VuiFlexItem grow={false}>
               <VuiPopover
+                isOpen={isExactKeywordOpen}
+                setIsOpen={setIsExactKeywordOpen}
+                button={
+                  <VuiButtonEmpty
+                    color="normal"
+                    size="s"
+                    icon={
+                      <VuiIcon size="m">
+                        <BiCaretDown />
+                      </VuiIcon>
+                    }
+                  >
+                    Use Keywords Only: {exactKeywordValue}
+                  </VuiButtonEmpty>
+                }
+              >
+                <VuiOptionsList
+                  isSelectable
+                  onSelectOption={(value) => {
+                    setIsExactKeywordOpen(false);
+                    onSearch({
+                      exactKeyword: value,
+                    });
+                  }}
+                  selectedOption={exactKeywordValue}
+                  options={exactKeywordOptions}
+                />
+              </VuiPopover>
+            </VuiFlexItem>
+
+            <VuiFlexItem grow={false}>
+              <VuiPopover
                 isOpen={isLanguageMenuOpen}
                 setIsOpen={setIsLanguageMenuOpen}
                 button={
@@ -130,7 +174,7 @@ export const SearchControls = ({
                       </VuiIcon>
                     }
                   >
-                    Language: {humanizeLanguage(language as SummaryLanguage)}
+                    Language: {humanizeLanguage(language)}
                   </VuiButtonEmpty>
                 }
               >
