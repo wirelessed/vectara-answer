@@ -16,7 +16,7 @@ export const ExampleQuestions = () => {
 
       <VuiText size="s">
         <p>
-          <VuiTextColor color="accent">Describe your interest above or try one of these topics.</VuiTextColor>
+          <VuiTextColor color="accent">Search for any topic or question within our transcripts. <br/>(You don't have to use exact keywords as the AI will understand the semantics and meaning of your query.)</VuiTextColor>
         </p>
       </VuiText>
 

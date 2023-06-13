@@ -4,29 +4,30 @@ import "./appFooter.scss";
 export const AppFooter = () => {
   return (
     <div className="appFooter">
-      {/* <div className="appFooterContent">
+      <div className="appFooterContent">
         <VuiFlexContainer alignItems="start" spacing="l" className="appFooterContent__layout">
           <VuiFlexItem grow={5}>
             <VuiTitle size="m">
-              <h3>Just an example of what's possible</h3>
+              <h3>How Vectara works?</h3>
             </VuiTitle>
 
             <VuiSpacer size="m" />
 
             <VuiText>
               <p>
-                We made this to show off Vectara's conversational search capabilities. But you can use Vectara to ask
-                your own data questions, too. Vectara is free to use so it's easy to get started.
+              Vectara is a neural search platform that uses artificial intelligence, natural language processing, and neural network technologies to deliver unparalleled search relevance.
               </p>
+              <p>Vectara uses its neural network to convert that query from the language space, meaning the vocabulary and the grammar, into the vector space, which is numbers and math.</p>
+              <p>Vectara maps the input query from language space to a meaning space, then it matches meaning-to-meaning to return accurate results, irrespective of language.</p>
             </VuiText>
 
             <VuiSpacer size="m" />
 
-            <div>
+            {/* <div>
               <VuiButton color="accent" size="m" href="https://console.vectara.com/" target="_blank">
                 Try Vectara now
               </VuiButton>
-            </div>
+            </div> */}
           </VuiFlexItem>
 
           <VuiFlexItem grow={5}>
@@ -34,7 +35,7 @@ export const AppFooter = () => {
               <h3>A conversational search API platform</h3>
             </VuiTitle>
 
-            <VuiSpacer size="m" />
+            {/* <VuiSpacer size="m" />
 
             <VuiText>
               <p>
@@ -75,11 +76,11 @@ export const AppFooter = () => {
                     </VuiLink>
                   </p>
                 </VuiText>
-              </VuiFlexItem>
-            </VuiFlexContainer>
+              </VuiFlexItem> */}
+            {/* </VuiFlexContainer> */}
           </VuiFlexItem>
         </VuiFlexContainer>
-      </div> */}
+      </div>
     </div>
   );
 };
