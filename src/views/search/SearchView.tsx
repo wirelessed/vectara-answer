@@ -23,9 +23,11 @@ import copy from 'copy-to-clipboard';
 function combineFirstTenStrings(objects: { text: string }[]): string {
   const firstTenObjects = objects.slice(0, 10);
   let combinedString = firstTenObjects.reduce((result, obj) => {
-    return result + obj.text;
+    return result + " " + obj.text + "\n\n\n";
   }, "");
 
+  combinedString = combinedString.replace(/%START_SNIPPET%/g, "");
+  combinedString = combinedString.replace(/%END_SNIPPET%/g, "");
   // combinedString = combinedString.substring(0, 4000);
 
   return combinedString;
@@ -60,6 +62,10 @@ export const SearchView = () => {
     prompt += combineFirstTenStrings(searchResponse.response);
     // console.log(prompt, "prompt");
   }
+
+  // console.log(searchResults,"results");
+  // console.log(searchResponse,"searchResponse");
+
 
   if (!isConfigLoaded) {
     content = (
@@ -108,6 +114,7 @@ export const SearchView = () => {
         <VuiSpacer size="l" />
 
         {!isSearching && (
+          <>
         <VuiButton
           color="accent"
           size="m"
@@ -118,8 +125,11 @@ export const SearchView = () => {
         >
           Copy excerpts to clipboard (and paste in your ChatGPT)
         </VuiButton>
+          <small style={{paddingTop: '10px'}}>Press CTRL+V or CMD+V to paste the excerpts in your ChatGPT window and enter to see a better summary result.</small>
+          </>
         )}
 
+        <VuiSpacer size="l" />
         <VuiSpacer size="l" />
 
         <SearchResults
