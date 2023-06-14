@@ -54,6 +54,7 @@ interface SearchContextType {
   selectedSearchResultPosition: number | undefined;
   selectSearchResultAt: (position: number) => void;
   exactKeywordValue: string;
+  searchResponse: any;
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
@@ -288,6 +289,7 @@ export const SearchContextProvider = ({ children }: Props) => {
         selectedSearchResultPosition,
         selectSearchResultAt,
         exactKeywordValue,
+        searchResponse,
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  VuiButton,
   VuiFlexContainer,
   VuiFlexItem,
   VuiHorizontalRule,
@@ -17,6 +18,18 @@ import { AppFooter } from "./chrome/AppFooter";
 import { useConfigContext } from "../../contexts/ConfigurationContext";
 import { HistoryDrawer } from "./controls/HistoryDrawer";
 import "./searchView.scss";
+import copy from 'copy-to-clipboard';
+
+function combineFirstTenStrings(objects: { text: string }[]): string {
+  const firstTenObjects = objects.slice(0, 10);
+  let combinedString = firstTenObjects.reduce((result, obj) => {
+    return result + obj.text;
+  }, "");
+
+  // combinedString = combinedString.substring(0, 4000);
+
+  return combinedString;
+}
 
 export const SearchView = () => {
   const { isConfigLoaded, app } = useConfigContext();
@@ -25,6 +38,8 @@ export const SearchView = () => {
     isSearching,
     searchError,
     searchResults,
+    searchResponse,
+    searchValue,
     isSummarizing,
     summarizationError,
     summarizationResponse,
@@ -36,6 +51,15 @@ export const SearchView = () => {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
   let content;
+
+  // create prompt for chatGPT
+  let prompt = "You are now a ghost writer for Pastor Joseph Prince. Write a friendly, encouraging answer to this question '" + searchValue + 
+  "' based on the following context, keeping the original tone of voice, with a key practical actionable takeaway at the end: \n\n";
+
+  if(searchResponse){
+    prompt += combineFirstTenStrings(searchResponse.response);
+    console.log(prompt, "prompt");
+  }
 
   if (!isConfigLoaded) {
     content = (
@@ -80,6 +104,21 @@ export const SearchView = () => {
         <VuiSpacer size="l" />
 
         <VuiHorizontalRule />
+
+        <VuiSpacer size="l" />
+
+        {!isSearching && (
+        <VuiButton
+          color="accent"
+          size="m"
+          onClick={() => {
+            copy(prompt);
+            window.open("https://chat.openai.com");
+          }}
+        >
+          Copy excerpts to clipboard (and paste in your ChatGPT)
+        </VuiButton>
+        )}
 
         <VuiSpacer size="l" />
 

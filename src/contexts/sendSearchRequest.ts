@@ -51,8 +51,8 @@ export const sendSearchRequest = async ({
         numResults: 20,
         corpusKey: corpusKeyList,
         context_config: {
-          sentencesBefore: 10,
-          sentencesAfter: 10,
+          sentencesBefore: 5,
+          sentencesAfter: 15,
           start_tag: START_TAG,
           end_tag: END_TAG,
         },
@@ -62,7 +62,7 @@ export const sendSearchRequest = async ({
                 {
                   summarizerPromptName: "vectara-summary-ext-v1.2.0",
                   responseLang: "eng",
-                  maxSummarizedResults: 5,
+                  maxSummarizedResults: 7,
                 },
               ],
             }
