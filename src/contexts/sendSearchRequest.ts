@@ -31,7 +31,7 @@ export const sendSearchRequest = async ({
       ? 0.025
       : 0.1;
 
-  console.log(lambda,"lambda");
+  // console.log(lambda,"lambda");
   const corpusKeyList = corpusId.split(",").map((id) => {
     return {
       customerId,
@@ -62,7 +62,7 @@ export const sendSearchRequest = async ({
                 {
                   summarizerPromptName: "vectara-summary-ext-v1.2.0",
                   responseLang: "eng",
-                  maxSummarizedResults: 7,
+                  maxSummarizedResults: 5,
                 },
               ],
             }
@@ -88,7 +88,7 @@ export const sendSearchRequest = async ({
     console.log("UNAUTHORIZED access; check your API key and customer ID");
   }
 
-  console.log(result, "reuslts");
+  // console.log(result, "reuslts");
 
   return result["data"]["responseSet"][0];
 };

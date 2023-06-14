@@ -58,7 +58,7 @@ export const SearchView = () => {
 
   if(searchResponse){
     prompt += combineFirstTenStrings(searchResponse.response);
-    console.log(prompt, "prompt");
+    // console.log(prompt, "prompt");
   }
 
   if (!isConfigLoaded) {
