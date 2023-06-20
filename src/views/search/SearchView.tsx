@@ -124,9 +124,9 @@ export const SearchView = () => {
             window.open("https://chat.openai.com");
           }}
         >
-          Copy excerpts to clipboard (and paste in your ChatGPT)
+          Click here to copy excerpts to clipboard (and then paste in your ChatGPT)
         </VuiButton>
-          <small style={{paddingTop: '10px'}}>Press CTRL+V or CMD+V to paste the excerpts in your ChatGPT window and enter to see a better summary result.</small>
+          <small style={{paddingTop: '10px'}}>The 1st 5 excerpts will be automatically copied. Press CTRL+V or CMD+V to paste in your ChatGPT window and enter to see a better write-up.</small>
           </>
         )}
 
