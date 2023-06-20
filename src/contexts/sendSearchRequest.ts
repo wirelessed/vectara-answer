@@ -2,6 +2,12 @@ import axios from "axios";
 import { START_TAG, END_TAG } from "../utils/parseSnippet";
 import { SummaryLanguage } from "../views/search/types";
 
+declare global {
+  interface Window {
+    gtag: any;
+  }
+}
+
 type Config = {
   filter: string;
   query_str?: string;
@@ -82,6 +88,11 @@ export const sendSearchRequest = async ({
     },
   };
   const result = await axios.post(url, body, headers);
+
+  window.gtag('event', 'search', {
+    'event_category': 'search',
+    'event_label': query_str,
+  });
 
   const status = result["data"]["responseSet"][0]["status"];
   if (status.length > 0 && status[0]["code"] === "UNAUTHORIZED") {
